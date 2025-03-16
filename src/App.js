@@ -3,6 +3,9 @@ const nav = ["Home","New", "Popular","Trending","Categories"]
 import image1 from "./images/image-retro-pcs.jpg"
 import image2 from "./images/image-top-laptops.jpg"
 import image3 from "./images/image-gaming-growth.jpg"
+import imgDesktop from "./images/image-web-3-desktop.jpg"
+import imgMenuOpen from "./images/icon-menu.svg"
+import imgMenuClose from "./images/icon-menu-close.svg"
 const news = [
     {h3: "Hydrogen VS Electric Cars", p: "Will hydrogen-fueled cars ever catch up to EVs?"},
     {h3:"The Downsides of AI Artistry" , p:"What are the possible adverse effects of on-demand AI image generation?" },
@@ -17,7 +20,7 @@ const aside = [
 
 const App = () => {
     const navRender = window.innerWidth >= 800 ? nav.map(a => {
-        return <a key={a} href="#">{a}</a>}) : <img src="/images/icon-menu.svg" onClick={openMenu}></img>
+        return <a key={a} href="#">{a}</a>}) : <img src={imgMenuOpen} onClick={openMenu}></img>
     
     const menuRef = useRef(null)
     function openMenu() {
@@ -30,12 +33,11 @@ const App = () => {
         document.body.style.overflow = "auto";
     }
     useEffect(e => {
-        console.log(menuRef)
     }, [])
     return (
         <>
             <section className="menu hidden" ref={menuRef} >
-                <img src="/images/icon-menu-close.svg" onClick={closeMenu}></img>
+                <img src={imgMenuClose} onClick={closeMenu}></img>
                 {nav.map(a => {
     return <a key={a} href="#">{a}</a>})}
             </section>
@@ -45,7 +47,7 @@ const App = () => {
             
             <main>
                 <section className="principal">
-                    <img src="/images/image-web-3-desktop.jpg"></img>
+                    <img src={imgDesktop}></img>
                     <h1>The Bright Future of Web 3.0?</h1>
                     <div>
                         <p>We dive into the next evolution of the web that claims to put the power of the platforms back into the hands of the people. But is it really fulfilling its promise?</p>
