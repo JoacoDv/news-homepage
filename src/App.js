@@ -1,4 +1,4 @@
-import React, {useRef, useEffect} from "react";
+import React, {useRef, useEffect, useState} from "react";
 const nav = ["Home","New", "Popular","Trending","Categories"]
 import image1 from "./images/image-retro-pcs.jpg"
 import image2 from "./images/image-top-laptops.jpg"
@@ -19,10 +19,28 @@ const aside = [
 
 
 const App = () => {
-    const navRender = window.innerWidth >= 800 ? nav.map(a => {
-        return <a key={a} href="#">{a}</a>}) : <img src={imgMenuOpen} onClick={openMenu}></img>
+    function Navbar() {
+        const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 800);
+        useEffect(() => {
+            const handleResize = () => {
+            setIsDesktop(window.innerWidth >= 800);
+            };
+            window.addEventListener('resize', handleResize);
+            return () => window.removeEventListener('resize', handleResize);
+        }, []);
+        
+        return (
+            <>
+                {isDesktop ? (
+                nav.map(a => <a key={a} href="#">{a}</a>)
+                ) : (
+                <img src={imgMenuOpen} onClick={openMenu} />
+                )}
+            </>
+        );
+    }
     
-    const menuRef = useRef(null)
+        const menuRef = useRef(null)
     function openMenu() {
         menuRef.current.classList.remove("hidden")
         document.body.style.overflow = "hidden";
@@ -32,18 +50,14 @@ const App = () => {
         menuRef.current.classList.add("hidden")
         document.body.style.overflow = "auto";
     }
-    useEffect(e => {
-    }, [])
     return (
         <>
             <section className="menu hidden" ref={menuRef} >
                 <img src={imgMenuClose} onClick={closeMenu}></img>
                 {nav.map(a => {
-    return <a key={a} href="#">{a}</a>})}
+                    return <a key={a} href="#">{a}</a>})}
             </section>
-            <nav><h1>W.</h1>{
-                navRender
-            }</nav>
+            <nav><h1>W.</h1><Navbar></Navbar></nav>
             
             <main>
                 <section className="principal">
