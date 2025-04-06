@@ -43,9 +43,17 @@ a:hover{
 
 main {
     display: grid;
+    max-height: 80vh;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(2, 1fr);
     gap: 20px;
+    justify-content: center;
+}
+
+@media (min-width: 900px) {
+    main {
+        grid-template-rows: repeat(2, minmax(0px, 600px));
+    }
 }
 
 .principal {
